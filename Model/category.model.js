@@ -1,27 +1,38 @@
-import { request, response } from "express";
-import { where } from "sequelize";
+import { DataTypes } from "sequelize";
+import sequelize from "../db/user.db.js";
 
-export const updateCategory =async(request, response, next)=>{
-    try{
-        let id= request.params.id;
-        let category = await Category.findOne({where:{id}});
-        if(Category){
-            category.name = request.body.name;
-            category.slug = request.body.slug;
-            category.url  = request.body.url;
-            await category.save();
-            return response.status(200).json({message:"update successfully"});
+import User from "./user.model.js";
+
+const Budget= sequelize.define("budget",{
+    categoryName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      typeOfBudget: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      time: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      usualExpenseOfMonth: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+      limit: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: User, // or 'User' if using the model name as a string
+          key: 'id'    // Ensure 'id' is a string
         }
-        return response.status(404).json({error:"Resource not found"});
-    }catch(err){
-           console.log(err);
-           return response.status(500).json({error:"Internal server error"});
-    }
-}  
+      } 
+})
+      
 
-export const getCategory = async(request, response, next)=>{
-    Category.findByPK(request.params.email)
-    .then(result=>{
-        return response.status(200).json({categories: result});
-    })
-}
+      export default Budget;
+     

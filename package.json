@@ -1,7 +1,8 @@
 {
   "name": "bms",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,10 +12,14 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-validator": "^7.2.0",
+    "json2csv": "^6.0.0-alpha.2",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.0",
+    "pdfkit": "^0.15.0",
+    "react-router-dom": "^6.26.1",
     "sequelize": "^6.37.3"
   }
 }
