@@ -1,18 +1,49 @@
+/* App.css */
 .App {
-  font-family: Arial, sans-serif;
   text-align: center;
 }
 
-nav {
+.App{
+  background-color: #5498e0;
+  background-size: 100%;
+}
+.navbar {
+  margin-bottom: 20px;
+  height: 100%;
+}
+
+.container {
+  max-width: 960px;
   margin-top: 20px;
 }
 
-nav a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #007bff;
+.page-title {
+  margin-bottom: 20px;
 }
 
-nav a:hover {
-  text-decoration: underline;
+h1 {
+  margin-top: 20px;
+  font-size: 2.5rem;
+}
+
+.btn-custom {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-custom:hover {
+  background-color: #0056b3;
+}
+
+.form-container {
+  margin-top: 20px;
+}
+
+.form-container form {
+  max-width: 500px;
+  margin: auto;
+}
+
+.error {
+  color: red;
 }

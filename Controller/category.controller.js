@@ -11,23 +11,34 @@ export const getcateBudget = async (request, response) => {
 }
 
 export const delcateBudget = async (request, response) => {
+    const id = request.params.id; // Extract the ID from URL parameters
+
+    if (!id) {
+        // Check if ID is provided
+        return response.status(400).json({ error: "ID is required" });
+    }
+
     try {
-        const { id } = request.body; // Assuming you're deleting by ID
-        const result = await category.destroy({ where: { id } });
+        // Perform the delete operation
+        const result = await category.destroy({
+            where: { id }
+        });
+
+        // Check if any rows were affected
         if (result) {
-            response.status(200).json({ message: "This Budget got deleted" });
+            return response.status(200).json({ message: "Category Budget deleted" });
         } else {
-            response.status(404).json({ error: "This Budget not found" });
+            return response.status(404).json({ error: "Category Budget not found" });
         }
-    } catch (err) {
-        console.error(err);
-        response.status(500).json({ error: "Internal Server Error" });
+    } catch (error) {
+        console.error(error); // Log the error for debugging
+        return response.status(500).json({ error: "Internal Server Error" });
     }
 }
 
 export const updatecateBudget = async (request, response) => {
     try {
-        const { id } = request.body;
+        const  id  = request.params.id;
         const { categoryName, typeOfBudget, time, usualExpenseOfMonth, limit } = request.body;
         const categoryItem = await category.findByPk(id);
         if (categoryItem) {
@@ -46,13 +57,38 @@ export const updatecateBudget = async (request, response) => {
         response.status(400).json({ error: error.message });
     }
 }
+export const createcateBudget = async (req, res) => {
+    // // Validate and sanitize inputs
+    // await body('categoryName').notEmpty().withMessage('Category Name is required').run(req);
+    // await body('typeOfBudget').notEmpty().withMessage('Type of Budget is required').run(req);
+    // await body('time').isISO8601().withMessage('Time must be a valid date').run(req);
+    // await body('usualExpenseOfMonth').isFloat({ min: 0 }).withMessage('Usual Expense must be a positive number').run(req);
+    // await body('limit').isFloat({ min: 0 }).withMessage('Limit must be a positive number').run(req);
+    // await body('userId').isInt({ gt: 0 }).withMessage('User ID must be a valid integer').run(req);
 
-export const createcateBudget = async (request, response) => {
+    // const errors = validationResult(req);
+
+    // if (!errors.isEmpty()) {
+    //     return res.status(400).json({ errors: errors.array() });
+    // }
+
     try {
-        const newCategory = await category.create(request.body);
-        response.status(201).json({ category: newCategory });
-    } catch (err) {
-        console.error(err);
-        response.status(400).json({ error: "Can't create...There are some issues" });
+        const { categoryName, typeOfBudget, time, usualExpenseOfMonth, limit, userId } = req.body;
+
+        // Create the new budget entry
+        const newBudget = await Budget.create({
+            categoryName,
+            typeOfBudget,
+            time,
+            usualExpenseOfMonth,
+            limit,
+            userId
+        });
+
+        // Respond with the newly created budget entry
+        return res.status(201).json({ message: "Budget created successfully", budget: newBudget });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Internal Server Error" });
     }
-}
+};

@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db/user.db.js";
 
-import User from "./user.model.js";
+import User from "../Model/user.model.js";
 
 const Budget= sequelize.define("budget",{
     categoryName: {
@@ -13,7 +13,7 @@ const Budget= sequelize.define("budget",{
         allowNull: false,
       },
       time: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
       },
       usualExpenseOfMonth: {
