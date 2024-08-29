@@ -1,3 +1,4 @@
+import Budget from "../Model/category.model.js";
 import category from "../Model/category.model.js";
 
 export const getcateBudget = async (request, response) => {
