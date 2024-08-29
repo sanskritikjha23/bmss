@@ -10,14 +10,14 @@ import TransportRouter from "./Routes/transport.routes.js";
 import UserRouter from "./Routes/user.router.js";
 import ExpenseRouter from './Routes/expense.routes.js';
 import ReportRouter from './Routes/report.routes.js';
-import cors from 'cors';
+// import cors from 'cors';
 
 const app= express();
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(express.json())
-app.use(cors());
+// app.use(cors());
 
 app.use("/category", CategoryRouter);
 app.use("/debt", DebtRouter);
