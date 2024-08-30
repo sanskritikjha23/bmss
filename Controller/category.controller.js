@@ -59,19 +59,6 @@ export const updatecateBudget = async (request, response) => {
     }
 }
 export const createcateBudget = async (req, res) => {
-    // // Validate and sanitize inputs
-    // await body('categoryName').notEmpty().withMessage('Category Name is required').run(req);
-    // await body('typeOfBudget').notEmpty().withMessage('Type of Budget is required').run(req);
-    // await body('time').isISO8601().withMessage('Time must be a valid date').run(req);
-    // await body('usualExpenseOfMonth').isFloat({ min: 0 }).withMessage('Usual Expense must be a positive number').run(req);
-    // await body('limit').isFloat({ min: 0 }).withMessage('Limit must be a positive number').run(req);
-    // await body('userId').isInt({ gt: 0 }).withMessage('User ID must be a valid integer').run(req);
-
-    // const errors = validationResult(req);
-
-    // if (!errors.isEmpty()) {
-    //     return res.status(400).json({ errors: errors.array() });
-    // }
 
     try {
         const { categoryName, typeOfBudget, time, usualExpenseOfMonth, limit, userId } = req.body;

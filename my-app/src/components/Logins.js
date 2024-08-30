@@ -25,7 +25,7 @@ function Logins() {
         axios.post('http://localhost:5000/user/Login', formData)
             .then(response => {
                 console.log('Login response:', response);
-                navigate('/create-category');
+                // navigate('/create-category');
                 if (response.status === 200) {
                     console.log('Redirecting to /create-category');
                      // Redirect to Create Category page

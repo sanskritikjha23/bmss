@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import CreateCategory from './components/CreateCategory';
+import CreateCategory from './components/CreatesCategory';
+import Categories from './components/CreateCategory';
 import UpdateCategory from './components/UpdateCategory';
 import DeleteCategory from './components/DeleteCategory';
 import ViewCategory from './components/ViewCategory';
@@ -22,6 +23,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<h1>Budget Management App</h1>} />
             <Route path="/create-category" element={<CreateCategory />} />
+            <Route path="/" element={<CreateCategory />} />
             <Route path="/update-category" element={<UpdateCategory />} />
             <Route path="/del-category" element={<DeleteCategory />} />
             <Route path="/get-category" element={<ViewCategory />} />

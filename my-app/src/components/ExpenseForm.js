@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const ExpenseForm = ({ expenseId, onSave, onCancel }) => {
-    const [expense, setExpense] = useState({
-        description: '',
-        amount: '',
-        date: ''
-    });
+    const [expense, setExpense] = useState({description: '', amount: '',date: ''});
     const [error, setError] = useState('');
 
     useEffect(() => {
