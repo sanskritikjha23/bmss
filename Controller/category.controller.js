@@ -1,57 +1,72 @@
 import Budget from "../Model/category.model.js";
 import category from "../Model/category.model.js";
 
-export const getcateBudget = async (request, response) => {
-    try {
-        const categories = await category.findAll(); // Adjust as necessary, use findByPk if you are looking for a specific category
-        response.status(200).json({ categories });
-    } catch (err) {
-        console.error(err);
-        response.status(500).json({ error: "Internal Server Error" });
+
+export const getcateBudget = async (req, res) => {
+    const { categoryName } = req.params;
+    
+    category.findOne({ where: { categoryName } })
+    .then(category => {
+        if (category) {
+            res.status(200).json(category);
+        } else {
+            res.status(404).json({ error: "Category not found" });
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    });
+};
+
+
+export const delcateBudget = async (req, res) => {
+    const { categoryName } = req.body; // Extract categoryName from request body
+
+    if (!categoryName) {
+        return res.status(400).json({ error: "Category name is required" });
     }
-}
-
-export const delcateBudget = async (request, response) => {
-    const id = request.params.id; // Extract the ID from URL parameters
-
-    if (!id) {
-        // Check if ID is provided
-        return response.status(400).json({ error: "ID is required" });
-    }
 
     try {
-        // Perform the delete operation
         const result = await category.destroy({
-            where: { id }
+            where: { categoryName }
         });
 
-        // Check if any rows were affected
         if (result) {
-            return response.status(200).json({ message: "Category Budget deleted" });
+            res.status(200).json({ message: "Category deleted successfully" });
         } else {
-            return response.status(404).json({ error: "Category Budget not found" });
+            res.status(404).json({ error: "Category not found" });
         }
     } catch (error) {
-        console.error(error); // Log the error for debugging
-        return response.status(500).json({ error: "Internal Server Error" });
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
-}
+};
+
 
 export const updatecateBudget = async (request, response) => {
+    const { categoryName, typeOfBudget, time, usualExpenseOfMonth, limit } = request.body;
+
+    if (!categoryName) {
+        return response.status(400).json({ error: "Category name is required" });
+    }
+
     try {
-        const  id  = request.params.id;
-        const { categoryName, typeOfBudget, time, usualExpenseOfMonth, limit } = request.body;
-        const categoryItem = await category.findByPk(id);
+        // Find the category by categoryName
+        const categoryItem = await category.findOne({ where: { categoryName } });
+
         if (categoryItem) {
-            categoryItem.categoryName = categoryName;
-            categoryItem.typeOfBudget = typeOfBudget;
-            categoryItem.time = time;
-            categoryItem.usualExpenseOfMonth = usualExpenseOfMonth;
-            categoryItem.limit = limit;
+            // Update the fields
+            categoryItem.typeOfBudget = typeOfBudget || categoryItem.typeOfBudget;
+            categoryItem.time = time || categoryItem.time;
+            categoryItem.usualExpenseOfMonth = usualExpenseOfMonth || categoryItem.usualExpenseOfMonth;
+            categoryItem.limit = limit || categoryItem.limit;
+            
+            // Save the updated category
             await categoryItem.save();
             response.status(200).json(categoryItem);
         } else {
-            response.status(404).json({ error: 'Budget not found' });
+            response.status(404).json({ error: 'Category not found' });
         }
     } catch (error) {
         console.error(error);

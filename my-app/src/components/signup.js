@@ -1,85 +1,75 @@
-import React, { useState } from "react";
+// src/components/Signup.js
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Logins.css';
-import usersicon from "../Assets/usersicon.png";
-import passwordicon from "../Assets/passwordicon.png";
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
-function Logins() {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+const Signup = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({ ...prevData, [name]: value }));
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Make an API request to your backend to register the user
+      await axios.post('http://localhost:5000/user/signup', {
+        username,
+        email,
+        password
+      });
+      // Redirect to the login page upon successful registration
+      navigate('/logins');
+    } catch (error) {
+      console.error('Error during sign up:', error);
+      setError('Failed to sign up. Please try again.');
+    }
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:5000/user/Login', formData);
-            if (response.status === 200) {
-                console.log(response.data);
-                navigate('/categories');
-            } else {
-                setError('Failed to log in.');
-            }
-        } catch (error) {
-            if (error.response) {
-                // Server responded with a status other than 2xx
-                setError(error.response.data.error || 'Failed to log in.');
-            } else if (error.request) {
-                // Request was made but no response received
-                setError('No response from server.');
-            } else {
-                // Something else happened
-                setError('Error: ' + error.message);
-            }
-            console.error('There was an error logging in!', error);
-        }
-    };
-
-    return (
-        <div className="container">
-            <div className="header">
-                <div className="text">Login</div>
-                <div className="underline"></div>
-            </div>
-            <form onSubmit={handleSubmit}>
-                <div className="inputs">
-                    <div className="input"></div>
-                    <img src={usersicon} alt="Usericon"/>
-                    <input
-                        type="text"
-                        name="email"
-                        placeholder="Email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="inputs">
-                    <div className="input"></div>
-                    <img src={passwordicon} alt="Password"/>
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="forgot-password">Forgot Password? <span>Click here!</span></div>
-                {error && <p className="error">{error}</p>}
-                <div className="submit-container">
-                    <button type="submit" className="submit">Login</button>
-                </div>
-            </form>
+  return (
+    <div className="container mt-5">
+      <h2>Sign Up</h2>
+      {error && <div className="alert alert-danger">{error}</div>}
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="username" className="form-label">Username</label>
+          <input
+            type="text"
+            id="username"
+            className="form-control"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
         </div>
-    );
-}
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            className="form-control"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            className="form-control"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">Sign Up</button>
+      </form>
+    </div>
+  );
+};
 
-export default Logins;
+export default Signup;

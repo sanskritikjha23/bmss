@@ -25,4 +25,4 @@ Sequelize.sync({ force: true }).then(() => {
   console.error("Error syncing models:", err);
 });
 
-export { Sequelize, User, Budget, Debt, Entertainment, Food, Healthcare, Stationary, Transport, Category };
+export { Sequelize, User, Budget };

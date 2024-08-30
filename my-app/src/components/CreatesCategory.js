@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CreateCategory = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const CreateCategory = () => {
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,18 +24,19 @@ const CreateCategory = () => {
         axios.post('http://localhost:5000/category/create-category', formData)
             .then(response => {
                 setSuccess('Category created successfully');
-                setFormData({
-                    categoryName: '',
-                    typeOfBudget: '',
-                    time: '',
-                    usualExpenseOfMonth: '',
-                    limit: ''
-                });
+                // Redirect after successful creation
+                setTimeout(() => {
+                    navigate('/categories'); // Redirect to Categories page
+                }, 1000); // Delay to show success message before redirect
             })
             .catch(error => {
                 setError('Failed to create category.');
                 console.error('Create error:', error);
             });
+    };
+
+    const handleBack = () => {
+        navigate('/categories'); // Navigate to Categories page
     };
 
     return (
@@ -83,6 +86,7 @@ const CreateCategory = () => {
             </form>
             {error && <p className="error">{error}</p>}
             {success && <p className="success">{success}</p>}
+            <button onClick={handleBack}>Back to Categories</button>
         </div>
     );
 };

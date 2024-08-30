@@ -9,26 +9,31 @@ const Categories = () => {
     };
 
     const handleUpdate = () => {
-        navigate('/update-category'); // Redirect to Update Category page
+        navigate('/update-category');
     };
 
     const handleGet = () => {
-        navigate('/get-category'); // Redirect to View Category page
+        navigate('/get-category');
     };
 
     const handleDelete = () => {
-        navigate('/del-category'); // Redirect to Delete Category page
+        navigate('/del-category');
     };
+
+    const handleViewExpenses = () => {
+        navigate('/expenses'); // Redirect to ExpenseList page
+    };
+
     return (
         <div>
-            <h1>Create Category</h1>
+            <h1>Category Management</h1>
             <button onClick={handleCreate}>Create Category</button>
             <button onClick={handleUpdate}>Update Category</button>
-            <button onClick={handleGet}>Get Category</button>
+            <button onClick={handleGet}>View Category</button>
             <button onClick={handleDelete}>Delete Category</button>
+            <button onClick={handleViewExpenses}>View Expenses</button> {/* Redirect to ExpenseList */}
         </div>
-    ) 
-
+    );
 };
 
 export default Categories;

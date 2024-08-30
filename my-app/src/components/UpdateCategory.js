@@ -1,98 +1,76 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'; // Use this to get categoryId from the URL
+import { useNavigate } from 'react-router-dom';
 
-const UpdateCategory = () => {
-    const { id } = useParams(); // Get categoryId from URL params
-    const [formData, setFormData] = useState({
-        categoryName: '',
-        typeOfBudget: '',
-        time: '',
-        usualExpenseOfMonth: '',
-        limit: ''
-    });
+const ViewCategory = () => {
+    const [categoryName, setCategoryName] = useState(''); // Change state variable name
+    const [category, setCategory] = useState(null);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false); // Added loading state
+    const navigate = useNavigate();
 
-    // Fetch category details when component mounts
     useEffect(() => {
-        const fetchCategory = async () => {
-            try {
-                const response = await axios.get(`http://localhost:5000/category/get-category/${id}`);
-                setFormData(response.data); // Assuming response.data contains category details
-            } catch (error) {
-                setError('Failed to fetch category details.');
-                console.error('Fetch error:', error);
-            }
-        };
+        if (categoryName) {
+            // Fetch category data when categoryName changes
+            const fetchCategory = async () => {
+                setLoading(true); // Start loading
+                try {
+                    const response = await axios.get(`http://localhost:5000/category/get-category/${categoryName}`);
+                    setCategory(response.data);
+                    setError('');
+                } catch (err) {
+                    setError('Failed to fetch category.');
+                    setCategory(null);
+                } finally {
+                    setLoading(false); // End loading
+                }
+            };
 
-        fetchCategory();
-    }, [id]);
+            fetchCategory();
+        }
+    }, [categoryName]); // Dependency on categoryName
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setCategoryName(e.target.value); // Update categoryName
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        axios.put(`http://localhost:5000/category/update-category/${id}`, formData)
-            .then(response => {
-                alert('Category updated successfully');
-            })
-            .catch(error => {
-                setError('Failed to update category.');
-                console.error('Update error:', error);
-            });
+    const handleFetch = () => {
+        if (categoryName) {
+            // Trigger fetch by setting categoryName
+            setCategoryName(categoryName); // This will trigger useEffect to fetch data
+        } else {
+            setError('Please enter a category name.');
+        }
+    };
+
+    const handleBack = () => {
+        navigate('/categories'); // Navigate to Categories page
     };
 
     return (
         <div>
-            <h1>Update Category</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="categoryName"
-                    value={formData.categoryName}
-                    onChange={handleChange}
-                    placeholder="Category Name"
-                    required
-                />
-                <input
-                    type="text"
-                    name="typeOfBudget"
-                    value={formData.typeOfBudget}
-                    onChange={handleChange}
-                    placeholder="Type of Budget"
-                    required
-                />
-                <input
-                    type="date"
-                    name="time"
-                    value={formData.time}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="number"
-                    name="usualExpenseOfMonth"
-                    value={formData.usualExpenseOfMonth}
-                    onChange={handleChange}
-                    placeholder="Usual Expense of Month"
-                    required
-                />
-                <input
-                    type="number"
-                    name="limit"
-                    value={formData.limit}
-                    onChange={handleChange}
-                    placeholder="Limit"
-                    required
-                />
-                <button type="submit">Update Category</button>
-            </form>
+            <h1>View Category</h1>
+            <input
+                type="text"
+                placeholder="Enter Category Name"
+                value={categoryName}
+                onChange={handleChange} // Handle input change
+            />
+            <button onClick={handleFetch}>Fetch Category</button>
+            {loading && <p>Loading...</p>} {/* Show loading text */}
             {error && <p className="error">{error}</p>}
+            {category && (
+                <div>
+                    <p><strong>Name:</strong> {category.categoryName}</p>
+                    <p><strong>Type:</strong> {category.typeOfBudget}</p>
+                    <p><strong>Time:</strong> {new Date(category.time).toDateString()}</p>
+                    <p><strong>Expense:</strong> ${category.usualExpenseOfMonth}</p>
+                    <p><strong>Limit:</strong> ${category.limit}</p>
+                </div>
+            )}
+            <button onClick={handleBack}>Back to Categories</button> {/* Back button */}
         </div>
     );
 };
 
-export default UpdateCategory;
+export default ViewCategory;
