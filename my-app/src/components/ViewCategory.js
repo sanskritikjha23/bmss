@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './view.css'; // Import custom CSS
 
 const ViewCategory = () => {
     const [categoryName, setCategoryName] = useState('');
@@ -44,27 +46,36 @@ const ViewCategory = () => {
     };
 
     return (
-        <div>
-            <h1>View Category</h1>
-            <input
-                type="text"
-                placeholder="Enter Category Name"
-                value={categoryName}
-                onChange={handleChange}
-            />
-            <button onClick={handleFetch}>Fetch Category</button>
-            {loading && <p>Loading...</p>}
-            {error && <p className="error">{error}</p>}
-            {category && (
-                <div>
-                    <p><strong>Name:</strong> {category.categoryName}</p>
-                    <p><strong>Type:</strong> {category.typeOfBudget}</p>
-                    <p><strong>Time:</strong> {new Date(category.time).toDateString()}</p>
-                    <p><strong>Expense:</strong> ${category.usualExpenseOfMonth}</p>
-                    <p><strong>Limit:</strong> ${category.limit}</p>
+        <div className="container mt-5">
+            <div className="card shadow-lg p-4">
+                <h1 className="text-center mb-4">View Category</h1>
+                <div className="form-group">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter Category Name"
+                        value={categoryName}
+                        onChange={handleChange}
+                    />
                 </div>
-            )}
-            <button onClick={handleBack}>Back to Categories</button>
+                <div className="text-center mb-4">
+                    <button className="btn btn-primary" onClick={handleFetch}>Fetch Category</button>
+                </div>
+                {loading && <p className="text-center">Loading...</p>}
+                {error && <p className="text-danger text-center">{error}</p>}
+                {category && (
+                    <div className="category-details">
+                        <p><strong>Name:</strong> {category.categoryName}</p>
+                        <p><strong>Type:</strong> {category.typeOfBudget}</p>
+                        <p><strong>Time:</strong> {new Date(category.time).toDateString()}</p>
+                        <p><strong>Expense:</strong> ${category.usualExpenseOfMonth}</p>
+                        <p><strong>Limit:</strong> ${category.limit}</p>
+                    </div>
+                )}
+                <div className="text-center mt-4">
+                    <button className="btn btn-secondary" onClick={handleBack}>Back to Categories</button>
+                </div>
+            </div>
         </div>
     );
 };

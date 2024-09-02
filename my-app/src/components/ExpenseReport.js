@@ -50,26 +50,20 @@
 
 // export default ExpenseReport;
 
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-import {BarChart,CartesianGrid,XAxis,YAxis,Tooltip,Legend,Bar} from 'recharts'
+const ExpenseReport = ({ data }) => {
+  return (
+    <BarChart width={600} height={300} data={data}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="date" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Bar dataKey="amount" fill="#8884d8" />
+    </BarChart>
+  );
+};
 
-const Chart=()=>{
- const arr=[
-  {name:"facebook",value:233},
-  {name:"instagram",value:2343}
- ]
-return(
-  <>
-  <BarChart width={730} height={250} data={arr}>
-  <CartesianGrid strokeDasharray="3 3" />
-  <XAxis dataKey="name" />
-  <YAxis />
-  <Tooltip />
-  <Legend />
-
-  <Bar dataKey="value" fill="#82ca9d" />
-</BarChart>
-  </>
-)
-}
-export default Chart;
+export default ExpenseReport;

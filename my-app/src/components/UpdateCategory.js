@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './update.css'; // Import custom CSS
 
 const UpdateCategory = () => {
     const [formData, setFormData] = useState({
@@ -44,12 +46,11 @@ const UpdateCategory = () => {
         e.preventDefault();
 
         axios.put(`http://localhost:5000/category/update-category/${encodeURIComponent(formData.categoryName)}`, formData)
-
             .then(response => {
                 setSuccess('Category updated successfully');
                 setTimeout(() => {
-                    navigate('/categories'); // Redirect to Categories page
-                }, 1000); // Delay to show success message before redirect
+                    navigate('/categories');
+                }, 1000);
             })
             .catch(error => {
                 setError('Failed to update category.');
@@ -58,60 +59,81 @@ const UpdateCategory = () => {
     };
 
     const handleBack = () => {
-        navigate('/categories'); // Navigate to Categories page
+        navigate('/categories');
     };
 
     return (
-        <div>
-            <h1>Update Category</h1>
-            <input
-                type="text"
-                name="categoryName"
-                value={formData.categoryName}
-                onChange={handleChange}
-                placeholder="Category Name (min 3 characters)"
-                required
-            />
-            <button onClick={handleSearch}>Search</button>
-            {formData.categoryName && (
-                <form onSubmit={handleSubmit}>
+        <div className="container mt-5">
+            <div className="card shadow-lg p-4">
+                <h1 className="text-center mb-4">Update Category</h1>
+                <div className="form-group">
                     <input
                         type="text"
-                        name="typeOfBudget"
-                        value={formData.typeOfBudget}
+                        className="form-control"
+                        name="categoryName"
+                        value={formData.categoryName}
                         onChange={handleChange}
-                        placeholder="Type of Budget"
+                        placeholder="Category Name (min 3 characters)"
                         required
                     />
-                    <input
-                        type="date"
-                        name="time"
-                        value={formData.time}
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="number"
-                        name="usualExpenseOfMonth"
-                        value={formData.usualExpenseOfMonth}
-                        onChange={handleChange}
-                        placeholder="Usual Expense of Month"
-                        required
-                    />
-                    <input
-                        type="number"
-                        name="limit"
-                        value={formData.limit}
-                        onChange={handleChange}
-                        placeholder="Limit"
-                        required
-                    />
-                    <button type="submit">Update Category</button>
-                </form>
-            )}
-            {error && <p className="error">{error}</p>}
-            {success && <p className="success">{success}</p>}
-            <button onClick={handleBack}>Back to Categories</button>
+                </div>
+                <div className="text-center mb-4">
+                    <button className="btn btn-primary" onClick={handleSearch}>Search</button>
+                </div>
+                {formData.categoryName && (
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="typeOfBudget"
+                                value={formData.typeOfBudget}
+                                onChange={handleChange}
+                                placeholder="Type of Budget"
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <input
+                                type="date"
+                                className="form-control"
+                                name="time"
+                                value={formData.time}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <input
+                                type="number"
+                                className="form-control"
+                                name="usualExpenseOfMonth"
+                                value={formData.usualExpenseOfMonth}
+                                onChange={handleChange}
+                                placeholder="Usual Expense of Month"
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <input
+                                type="number"
+                                className="form-control"
+                                name="limit"
+                                value={formData.limit}
+                                onChange={handleChange}
+                                placeholder="Limit"
+                                required
+                            />
+                        </div>
+                        <div className="text-center">
+                            <button type="submit" className="btn btn-success mr-2">Update Category</button>
+                            <button type="button" className="btn btn-secondary" onClick={handleBack}>Back to Categories</button>
+                        </div>
+                    </form>
+                )}
+                {error && <p className="text-danger mt-3 text-center">{error}</p>}
+                {success && <p className="text-success mt-3 text-center">{success}</p>}
+            </div>
         </div>
     );
 };

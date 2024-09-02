@@ -44,24 +44,32 @@ const ExpenseList = () => {
   };
 
   return (
-    <div>
-      <h1>Expense Management</h1>
-      {error && <p className="error">{error}</p>}
-      <button onClick={handleAdd}>Add New Expense</button>
-      <button onClick={handleViewReport} style={{ marginLeft: '10px' }}>View Report</button>
-      <ul>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">Expense Management</h1>
+      {error && <div className="alert alert-danger">{error}</div>}
+      <div className="d-flex justify-content-between mb-4">
+        <button className="btn btn-primary" onClick={handleAdd}>Add New Expense</button>
+        <button className="btn btn-secondary ml-2" onClick={handleViewReport}>View Report</button>
+      </div>
+      <ul className="list-group">
         {expenses.length > 0 ? (
           expenses.map(expense => (
-            <li key={expense.id}>
-              <p>Description: {expense.description}</p>
-              <p>Amount: ${expense.amount}</p>
-              <p>Date: {new Date(expense.date).toDateString()}</p>
-              <button onClick={() => handleEdit(expense.id)}>Edit</button>
-              <button onClick={() => handleDelete(expense.id)}>Delete</button>
+            <li key={expense.id} className="list-group-item mb-3 shadow-sm">
+              <div className="d-flex justify-content-between align-items-center">
+                <div>
+                  <p className="mb-1"><strong>Description:</strong> {expense.description}</p>
+                  <p className="mb-1"><strong>Amount:</strong> ${expense.amount}</p>
+                  <p className="mb-1"><strong>Date:</strong> {new Date(expense.date).toDateString()}</p>
+                </div>
+                <div>
+                  <button className="btn btn-sm btn-outline-primary mr-2" onClick={() => handleEdit(expense.id)}>Edit</button>
+                  <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(expense.id)}>Delete</button>
+                </div>
+              </div>
             </li>
           ))
         ) : (
-          <p>No expenses found.</p>
+          <p className="text-center">No expenses found.</p>
         )}
       </ul>
     </div>

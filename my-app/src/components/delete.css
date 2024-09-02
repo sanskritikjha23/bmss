@@ -1,0 +1,52 @@
+/* DeleteCategory.css */
+
+/* Custom card styling */
+.custom-card {
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.custom-card:hover {
+    transform: scale(1.02);
+}
+
+/* Custom title styling */
+.custom-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    color: #343a40;
+}
+
+/* Custom label styling */
+.custom-label {
+    font-weight: bold;
+    color: #495057;
+}
+
+/* Custom input styling */
+.custom-input {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+}
+
+/* Custom button styling */
+.custom-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.custom-button:hover {
+    background-color: #495057;
+    color: #ffffff;
+}
+
+/* Custom error message styling */
+.custom-error {
+    font-weight: bold;
+    font-size: 1rem;
+}

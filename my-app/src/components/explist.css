@@ -1,0 +1,72 @@
+/* ExpenseList.css */
+
+/* Container Styling */
+.container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading Styling */
+h1 {
+    font-size: 2.5rem;
+    color: #007bff;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* Button Group Styling */
+.d-flex button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+/* List Group Styling */
+.list-group-item {
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.list-group-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Text Styling */
+p {
+    margin: 5px 0;
+}
+
+p strong {
+    color: #343a40;
+}
+
+/* Edit and Delete Buttons */
+.btn-outline-primary, .btn-outline-danger {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #007bff;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #ffffff;
+    border-color: #dc3545;
+}
+
+/* Alert Styling */
+.alert {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
