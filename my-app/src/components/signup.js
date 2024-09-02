@@ -15,7 +15,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       // Make an API request to your backend to register the user
-      await axios.post('http://localhost:5000/user/signup', {
+      await axios.post('http://localhost:5000/user/Register', {
         username,
         email,
         password

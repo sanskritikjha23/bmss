@@ -38,10 +38,10 @@ const ExpenseForm = () => {
         await axios.put(`http://localhost:5000/expense/${expenseId}`, { description, amount, date });
       } else {
         // Create new expense
-        await axios.post('http://localhost:5000/expense', { description, amount, date });
+        await axios.post('http://localhost:5000/create-expense', { description, amount, date });
       }
-      // Redirect to ExpenseReport after successful operation
-      navigate('/expense-report');
+      // Redirect to ExpenseList after successful operation
+      navigate('/expenses');
     } catch (error) {
       console.error('Error saving expense:', error);
       setError('Failed to save expense.');
@@ -49,11 +49,7 @@ const ExpenseForm = () => {
   };
 
   const handleCancel = () => {
-    navigate('/expense-report'); // Navigate to ExpenseReport
-  };
-
-  const handleViewReport = () => {
-    navigate('/expense-report'); // Navigate to ExpenseReport
+    navigate('/expenses'); // Navigate to ExpenseList
   };
 
   return (
@@ -85,8 +81,7 @@ const ExpenseForm = () => {
           required
         />
         <button type="submit">{expenseId ? 'Update' : 'Add'}</button>
-        <button type="button" onClick={handleCancel}>Back to Expense Report</button>
-        <button type="button" onClick={handleViewReport}>View Report</button>
+        <button type="button" onClick={handleCancel}>Expense List</button>
       </form>
     </div>
   );

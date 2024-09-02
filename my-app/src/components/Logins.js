@@ -15,9 +15,9 @@ const Logins = () => {
       // Simulate a login
       // You should replace this with actual authentication logic
       console.log('Logged in with', username);
-      
-      // Redirect to the create category page or another authenticated page
-      navigate('/create-category'); // Redirect after login
+
+      // Redirect to the Categories component after successful login
+      navigate('/categories'); // Redirect to the Categories page
     } else {
       console.log('Please enter username and password');
     }

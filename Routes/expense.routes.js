@@ -12,7 +12,7 @@ const router = express.Router();
 router.post('/create-expense', createExpense);
 
 // Get all expenses
-router.get('/get-expenses', getExpenses);
+router.get('/', getExpenses);
 
 // Update an expense by ID
 router.put('/update-expense/:id', updateExpense);

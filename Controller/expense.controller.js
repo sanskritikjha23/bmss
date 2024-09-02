@@ -4,13 +4,21 @@ import Expense from '../Model/expense.model.js'; // Adjust the import according 
 export const createExpense = async (req, res) => {
   try {
     const { description, amount, date } = req.body;
+    
+    // Ensure all required fields are provided
+    if (!description || !amount || !date) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    // Create the new expense
     const newExpense = await Expense.create({ description, amount, date });
     res.status(201).json({ expense: newExpense });
   } catch (error) {
-    console.error(error);
+    console.error('Error creating expense:', error);
     res.status(400).json({ error: 'Failed to create expense' });
   }
 };
+
 
 // Get all expenses
 export const getExpenses = async (req, res) => {

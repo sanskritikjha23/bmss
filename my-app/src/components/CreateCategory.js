@@ -21,7 +21,7 @@ const Categories = () => {
     };
 
     const handleViewExpenses = () => {
-        navigate('/expenses'); // Redirect to ExpenseList page
+        navigate('/expense-form'); // Redirect to ExpenseForm page
     };
 
     return (
@@ -31,7 +31,7 @@ const Categories = () => {
             <button onClick={handleUpdate}>Update Category</button>
             <button onClick={handleGet}>View Category</button>
             <button onClick={handleDelete}>Delete Category</button>
-            <button onClick={handleViewExpenses}>View Expenses</button> {/* Redirect to ExpenseList */}
+            <button onClick={handleViewExpenses}>Expenses</button> {/* Redirect to ExpenseForm */}
         </div>
     );
 };

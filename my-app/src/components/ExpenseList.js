@@ -29,6 +29,7 @@ const ExpenseList = () => {
     try {
       await axios.delete(`http://localhost:5000/expense/${expenseId}`);
       setExpenses(expenses.filter(expense => expense.id !== expenseId));
+      navigate('/expense-report'); // Redirect to Expense Report after deleting
     } catch (error) {
       console.error('Error deleting expense:', error);
       setError('Failed to delete expense.');
@@ -39,11 +40,16 @@ const ExpenseList = () => {
     navigate('/expense-form'); // Navigate to Expense Form for adding a new expense
   };
 
+  const handleViewReport = () => {
+    navigate('/expense-report'); // Navigate to the Expense Report page
+  };
+
   return (
     <div>
       <h1>Expense Management</h1>
       {error && <p className="error">{error}</p>}
       <button onClick={handleAdd}>Add New Expense</button>
+      <button onClick={handleViewReport} style={{ marginLeft: '10px' }}>View Report</button>
       <ul>
         {expenses.map(expense => (
           <li key={expense.id}>
