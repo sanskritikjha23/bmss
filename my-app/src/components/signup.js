@@ -1,73 +1,63 @@
-// src/components/Signup.js
+// src/Signup.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import './signup.css'; // Ensure this file has the necessary custom styles
 
 const Signup = () => {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSignup = (e) => {
     e.preventDefault();
-    try {
-      // Make an API request to your backend to register the user
-      await axios.post('http://localhost:5000/user/signup', {
-        username,
-        email,
-        password
-      });
-      // Redirect to the login page upon successful registration
-      navigate('/logins');
-    } catch (error) {
-      console.error('Error during sign up:', error);
-      setError('Failed to sign up. Please try again.');
-    }
+    // Implement your signup logic here
+    console.log('Signing up with:', { email, username, password, confirmPassword });
   };
 
   return (
-    <div className="container mt-5">
-      <h2>Sign Up</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="username" className="form-label">Username</label>
-          <input
-            type="text"
-            id="username"
-            className="form-control"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email</label>
-          <input
-            type="email"
-            id="email"
-            className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
-          <input
-            type="password"
-            id="password"
-            className="form-control"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">Sign Up</button>
-      </form>
+    <div className="signup-container">
+      <div className="signup-box">
+        <h2 className="text-center">Sign Up</h2>
+        <form onSubmit={handleSignup}>
+          <div className="form-group mb-3">
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              className="form-control"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group mb-4">
+            
+          </div>
+          <button type="submit" className="btn btn-primary w-100">Sign Up</button>
+        </form>
+      </div>
     </div>
   );
 };

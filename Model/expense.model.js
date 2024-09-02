@@ -2,16 +2,21 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../db/user.db.js'; // Adjust the import according to your setup
 
 const Expense = sequelize.define('Expense', {
+  id :{
+    type : DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement : true
+  },
   description: {
     type: DataTypes.STRING,
     allowNull: false
   },
   amount: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.NUMBER,
     allowNull: false
   },
   date: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false
   }
 });

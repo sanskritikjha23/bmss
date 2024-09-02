@@ -29,12 +29,7 @@ const User = sequelize.define("users", {
         }
     },
 });
-sequelize.sync()
-    .then(result => {
-        console.log("User table created")
-    }).catch(err => {
-        console.log("Something wrong");
-    })
+
 User.checkPassword = (password, encryptedPassword) => {
     let status = bcrypt.compareSync(password, encryptedPassword);
     console.log(password, encryptedPassword)

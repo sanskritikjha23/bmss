@@ -1,0 +1,79 @@
+/* src/Categories.css */
+
+/* Container for aligning the content */
+.categories-container {
+    padding: 2rem;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* Heading styling */
+.categories-container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #343a40;
+}
+
+/* Button styling */
+.categories-container .btn {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 8rem;
+    /* margin-bottom: 1rem; */
+    border-radius: 8px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+}
+
+/* Different colors for buttons */
+.btn-create {
+    background-color: #74a3d4;
+    color: #fff;
+}
+
+.btn-create:hover {
+    background-color: #0056b3;
+}
+
+.btn-update {
+    background-color: #74a3d4;
+    color: #fff;
+}
+
+.btn-update:hover {
+    background-color: #218838;
+}
+
+.btn-get {
+    background-color: #74a3d4;
+    color: #fff;
+}
+
+.btn-get:hover {
+    background-color: #138496;
+}
+
+.btn-delete {
+    background-color: #74a3d4;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+.btn-expenses {
+    background-color: #74a3d4;
+    color: #fff;
+}
+
+.btn-expenses:hover {
+    background-color: #e0a800;
+}
+
+/* Responsive design for buttons */
+@media (max-width: 576px) {
+    .categories-container .btn {
+        font-size: 1rem;
+    }
+}

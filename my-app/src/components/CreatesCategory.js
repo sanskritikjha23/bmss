@@ -1,6 +1,8 @@
+// src/CreateCategory.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './create.css'; // Ensure this file contains your custom styles
 
 const CreateCategory = () => {
     const [formData, setFormData] = useState({
@@ -40,53 +42,68 @@ const CreateCategory = () => {
     };
 
     return (
-        <div>
-            <h1>Create Category</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="categoryName"
-                    value={formData.categoryName}
-                    onChange={handleChange}
-                    placeholder="Category Name"
-                    required
-                />
-                <input
-                    type="text"
-                    name="typeOfBudget"
-                    value={formData.typeOfBudget}
-                    onChange={handleChange}
-                    placeholder="Type of Budget"
-                    required
-                />
-                <input
-                    type="date"
-                    name="time"
-                    value={formData.time}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="number"
-                    name="usualExpenseOfMonth"
-                    value={formData.usualExpenseOfMonth}
-                    onChange={handleChange}
-                    placeholder="Usual Expense of Month"
-                    required
-                />
-                <input
-                    type="number"
-                    name="limit"
-                    value={formData.limit}
-                    onChange={handleChange}
-                    placeholder="Limit"
-                    required
-                />
-                <button type="submit">Create Category</button>
+        <div className="container mt-5">
+            <h1 className="text-center mb-4">Create Category</h1>
+            <form onSubmit={handleSubmit} className="form-group">
+                <div className="mb-3">
+                    <input
+                        type="text"
+                        name="categoryName"
+                        value={formData.categoryName}
+                        onChange={handleChange}
+                        placeholder="Category Name"
+                        className="form-control"
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <input
+                        type="text"
+                        name="typeOfBudget"
+                        value={formData.typeOfBudget}
+                        onChange={handleChange}
+                        placeholder="Type of Budget"
+                        className="form-control"
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <input
+                        type="date"
+                        name="time"
+                        value={formData.time}
+                        onChange={handleChange}
+                        className="form-control"
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <input
+                        type="number"
+                        name="usualExpenseOfMonth"
+                        value={formData.usualExpenseOfMonth}
+                        onChange={handleChange}
+                        placeholder="Usual Expense of Month"
+                        className="form-control"
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <input
+                        type="number"
+                        name="limit"
+                        value={formData.limit}
+                        onChange={handleChange}
+                        placeholder="Limit"
+                        className="form-control"
+                        required
+                    />
+                </div>
+                <button type="submit" className="btn btn-primary w-100 mb-3">Create Category</button>
             </form>
-            {error && <p className="error">{error}</p>}
-            {success && <p className="success">{success}</p>}
-            <button onClick={handleBack}>Back to Categories</button>
+            {error && <p className="text-danger text-center">{error}</p>}
+            {success && <p className="text-success text-center">{success}</p>}
+            <button onClick={handleBack} className="btn btn-secondary w-100">Back to Categories</button>
         </div>
     );
 };
