@@ -48,7 +48,7 @@ const ExpenseList = () => {
       <h1 className="text-center mb-4">Expense Management</h1>
       {error && <div className="alert alert-danger">{error}</div>}
       <div className="d-flex justify-content-between mb-4">
-        <button className="btn btn-primary" onClick={handleAdd}>Add New Expense</button>
+        {/* <button className="btn btn-primary" onClick={handleAdd}>Add New Expense</button> */}
         <button className="btn btn-secondary ml-2" onClick={handleViewReport}>View Report</button>
       </div>
       <ul className="list-group">

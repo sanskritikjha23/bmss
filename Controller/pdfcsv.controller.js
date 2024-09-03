@@ -1,10 +1,17 @@
-import { generateCSV, generatePDF } from './report.utils.js'; // Assuming these are defined elsewhere
+import { generateCSV, generatePDF } from '../utils/report.utils.js'; // Adjust path as needed
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const downloadReport = async (req, res) => {
   try {
     const { format } = req.query;
-    const expenses = [/* your expense data */];
+    const expenses = [
+      { date: '2024-09-01', amount: 100 },
+      { date: '2024-09-02', amount: 150 },
+    ];
 
     if (format === 'csv') {
       const csv = generateCSV(expenses);

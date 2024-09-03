@@ -40,6 +40,8 @@ const App = () => {
             <Route path="/create-expense" element={<ExpenseForm />} /> 
             <Route path="/expenses" element={<ExpenseList />} />
             <Route path="/generate-report" element={<ExpenseReport />} />
+            <Route path="/add-expense" element={<ExpenseForm />} />
+            <Route path="/expenses" element={<ExpenseReport />} />
             <Route path="/export-report/pdf" element={<ExpenseReport />} />
             <Route path="/export-report/csv" element={<ExpenseReport />} /> 
             <Route path="/signup" element={<Signup />} />
