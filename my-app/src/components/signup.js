@@ -1,6 +1,5 @@
-// src/Signup.js
 import React, { useState } from 'react';
-import './signup.css'; // Ensure this file has the necessary custom styles
+import './signup.css';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +9,10 @@ const Signup = () => {
 
   const handleSignup = (e) => {
     e.preventDefault();
+    
+    // Store email in local storage after signup
+    localStorage.setItem('userEmail', email);
+
     // Implement your signup logic here
     console.log('Signing up with:', { email, username, password, confirmPassword });
   };
@@ -53,7 +56,15 @@ const Signup = () => {
             />
           </div>
           <div className="form-group mb-4">
-            
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              className="form-control"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
           </div>
           <button type="submit" className="btn btn-primary w-100">Sign Up</button>
         </form>

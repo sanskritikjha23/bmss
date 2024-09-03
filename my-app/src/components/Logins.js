@@ -1,7 +1,6 @@
-// src/Logins.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Logins.css'; // Ensure this file has the necessary custom styles
+import './Logins.css';
 
 const Logins = () => {
   const [username, setUsername] = useState('');
@@ -13,12 +12,14 @@ const Logins = () => {
 
     // Example validation and login logic
     if (username && password) {
-      // Simulate a login
-      // You should replace this with actual authentication logic
-      console.log('Logged in with', username);
+      // Simulate a login and retrieve user email (assuming from API or hardcoded)
+      const userEmail = 'user@example.com'; // Replace with actual email retrieval logic
+
+      // Store the email in local storage or session storage
+      localStorage.setItem('userEmail', userEmail);
 
       // Redirect to the Categories component after successful login
-      navigate('/categories'); // Redirect to the Categories page
+      navigate('/categories');
     } else {
       console.log('Please enter username and password');
     }
