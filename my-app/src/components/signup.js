@@ -10,11 +10,12 @@ const Signup = () => {
   const handleSignup = (e) => {
     e.preventDefault();
     
-    // Store email in local storage after signup
-    localStorage.setItem('userEmail', email);
+    // // Store email in local storage after signup
+    // localStorage.setItem('userEmail', email);
 
-    // Implement your signup logic here
-    console.log('Signing up with:', { email, username, password, confirmPassword });
+    // // Implement your signup logic here
+    // console.log('Signing up with:', { email, username, password, confirmPassword });
+    alert("hello")
   };
 
   return (

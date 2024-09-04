@@ -18,10 +18,11 @@ export const Login = async (request, response, next) => {
 };
 
 export const Register = async (request, response, next) => {
+    console.log(request.body)
     try {
         const errors = validationResult(request);
         if (!errors.isEmpty())
-            return response.status(401).json({ error: 'Bad request' });
+            return response.status(401).json({ error: 'Bad request',errors });
 
         let { username, email, password } = request.body;
         let user = await User.create({ username, email, password });

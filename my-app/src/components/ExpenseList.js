@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const ExpenseList = () => {
   const [expenses, setExpenses] = useState([]);
@@ -11,7 +13,7 @@ const ExpenseList = () => {
     const fetchExpenses = async () => {
       try {
         const response = await axios.get('http://localhost:5000/expense');
-        setExpenses(response.data.expenses); // Ensure this matches your API response format
+        setExpenses(response.data.expenses);
       } catch (error) {
         console.error('Error fetching expenses:', error);
         setError('Failed to fetch expenses.');
@@ -43,13 +45,78 @@ const ExpenseList = () => {
     navigate('/generate-report');
   };
 
+  const downloadCSV = () => {
+    if (expenses.length === 0) {
+      alert('No expenses to download.');
+      return;
+    }
+
+    const headers = ['ID', 'Description', 'Amount', 'Date'];
+    const rows = expenses.map(expense => [
+      expense.id,
+      expense.description,
+      expense.amount,
+      new Date(expense.date).toLocaleDateString()
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(field => `"${field.toString().replace(/"/g, '""')}"`).join(','))
+    ].join('\n');
+
+    console.log('CSV Content:', csvContent);
+
+    try {
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'expenses.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error during CSV download:', error);
+      alert('An error occurred while trying to download the CSV file.');
+    }
+  };
+
+  const downloadPDF = () => {
+    if (expenses.length === 0) {
+      alert('No expenses to download.');
+      return;
+    }
+
+    const doc = new jsPDF();
+
+    const headers = ['ID', 'Description', 'Amount', 'Date'];
+    const rows = expenses.map(expense => [
+      expense.id,
+      expense.description,
+      expense.amount,
+      new Date(expense.date).toLocaleDateString()
+    ]);
+
+    doc.text('Expense List', 14, 16);
+    doc.autoTable({
+      head: [headers],
+      body: rows,
+      startY: 20,
+      theme: 'striped',
+      margin: { top: 30 }
+    });
+
+    doc.save('expenses.pdf');
+  };
+
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Expense Management</h1>
       {error && <div className="alert alert-danger">{error}</div>}
       <div className="d-flex justify-content-between mb-4">
-        {/* <button className="btn btn-primary" onClick={handleAdd}>Add New Expense</button> */}
+        <button className="btn btn-primary" onClick={handleAdd}>Add New Expense</button>
         <button className="btn btn-secondary ml-2" onClick={handleViewReport}>View Report</button>
+        <button className="btn btn-info ml-2" onClick={downloadCSV}>Download CSV</button>
+        <button className="btn btn-danger ml-2" onClick={downloadPDF}>Download PDF</button>
       </div>
       <ul className="list-group">
         {expenses.length > 0 ? (

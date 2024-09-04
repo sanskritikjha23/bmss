@@ -12,6 +12,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "json2csv": "^6.0.0-alpha.2",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.3",
     "nodemailer": "^6.9.15",
     "pdfkit": "^0.15.0",
     "pdfkit-table": "^0.1.99",
