@@ -1,5 +1,5 @@
 // App.js
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CreatesCategory from './components/CreatesCategory';
 import UpdateCategory from './components/UpdateCategory';
@@ -26,8 +26,10 @@ const App = () => {
         <Route path="/del-category" element={<DeleteCategory />} />
         <Route path="/get-category" element={<ViewCategory />} />
         <Route path="/create-expense" element={<ExpenseForm />} /> 
+        
         <Route path="/expenses" element={<ExpenseList />} />
-        <Route path="/generate-report" element={<ExpenseReport />} />
+        <Route path="/expense-form/:id?" element={<ExpenseForm />} />
+        <Route path="/generate-report" element={<ExpenseReport />} />       
         <Route path="/signup" element={<Signup />} />
         <Route path="/logins" element={<Logins />} />
         <Route path="/categories" element={<Categories />} />

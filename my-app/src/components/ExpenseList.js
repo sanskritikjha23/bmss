@@ -9,19 +9,34 @@ const ExpenseList = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const fetchExpenses = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:5000/expense');
+  //       setExpenses(response.data.expenses);
+  //     } catch (error) {
+  //       console.error('Error fetching expenses:', error);
+  //       setError('Failed to fetch expenses.');
+  //     }
+  //   };
+
+  //   fetchExpenses();
+  // }, []);
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
         const response = await axios.get('http://localhost:5000/expense');
+        console.log('Fetched expenses:', response.data.expenses); // Check the data received
         setExpenses(response.data.expenses);
       } catch (error) {
         console.error('Error fetching expenses:', error);
         setError('Failed to fetch expenses.');
       }
     };
-
+  
     fetchExpenses();
   }, []);
+  
 
   const handleEdit = (expenseId) => {
     navigate(`/expense-form/${expenseId}`);
@@ -42,9 +57,11 @@ const ExpenseList = () => {
   };
 
   const handleViewReport = () => {
-    navigate('/generate-report');
+    console.log('Navigating with data:', expenses); // Debugging
+    navigate('/generate-report', { state: { data: expenses } });
   };
-
+  
+  
   const downloadCSV = () => {
     if (expenses.length === 0) {
       alert('No expenses to download.');
@@ -128,10 +145,10 @@ const ExpenseList = () => {
                   <p className="mb-1"><strong>Amount:</strong> ${expense.amount}</p>
                   <p className="mb-1"><strong>Date:</strong> {new Date(expense.date).toDateString()}</p>
                 </div>
-                <div>
+                {/* <div>
                   <button className="btn btn-sm btn-outline-primary mr-2" onClick={() => handleEdit(expense.id)}>Edit</button>
                   <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(expense.id)}>Delete</button>
-                </div>
+                </div> */}
               </div>
             </li>
           ))
