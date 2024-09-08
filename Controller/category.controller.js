@@ -1,7 +1,6 @@
 import Budget from "../Model/category.model.js";
 import category from "../Model/category.model.js";
 
-
 export const getcateBudget = async (req, res) => {
     const { categoryName } = req.params;
     
@@ -83,7 +82,7 @@ export const updatecateBudget = async (request, response) => {
 };
 
 export const createcateBudget = async (req, res) => {
-
+    
     try {
         const { categoryName, typeOfBudget, time, usualExpenseOfMonth, limit, userId } = req.body;
 
@@ -101,6 +100,6 @@ export const createcateBudget = async (req, res) => {
         return res.status(201).json({ message: "Budget created successfully", budget: newBudget });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ error: "Internal Server Error" });
+        return res.status(500).json({ error: "Internal Server Error",error });
     }
 };

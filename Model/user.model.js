@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import bcrypt from "bcryptjs";
 import sequelize from "../db/user.db.js";
+
 // import { genSaltSync } from "bcryptjs";
 
 const User = sequelize.define("users", {
@@ -17,7 +18,9 @@ const User = sequelize.define("users", {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        validate:{
+            isEmail : true
+        }
     },
     password: {
         type: DataTypes.STRING,
@@ -25,7 +28,7 @@ const User = sequelize.define("users", {
         set(v) {
             let saltkey = bcrypt.genSaltSync(12);
             let encryptedPassword = bcrypt.hashSync(v, saltkey);
-            this.setDataValue("password", encryptedPassword);
+            this.setDataValue('password', encryptedPassword);
         }
     },
 });
