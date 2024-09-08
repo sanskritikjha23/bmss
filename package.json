@@ -22,5 +22,6 @@
     "pdfkit": "^0.15.0",
     "react-router-dom": "^6.26.1",
     "sequelize": "^6.37.3"
+   
   }
 }
